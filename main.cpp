@@ -6,7 +6,7 @@
 
 #include "iphelper.h"
 
-int main(int argc, char const *argv[])
+int main()
 {
     try
     {        
