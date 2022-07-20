@@ -77,33 +77,43 @@ namespace IpHelper {
     }
 
 
-    void printIpV4( const IpV4Pool & ipV4Pool ) {
+    // ======== PRINT ============
 
-        for( const auto & ipV4 : ipV4Pool ) {
-            std::cout << std::to_string( ipV4.octet1 ) << '.'
-                      << std::to_string( ipV4.octet2 ) << '.'
-                      << std::to_string( ipV4.octet3 ) << '.'
-                      << std::to_string( ipV4.octet4 ) << std::endl;
-            }
+    void printIpV4( const IpV4 & ipV4 ) {
+        std::cout << std::to_string( ipV4.octet1 ) << '.'
+                  << std::to_string( ipV4.octet2 ) << '.'
+                  << std::to_string( ipV4.octet3) << '.'
+                  << std::to_string( ipV4.octet4 ) << std::endl;
     }
 
+    void printIpV4Pool( const IpV4Pool & ipV4Pool ) {
+        std::cout << "===" << std::endl;
+        for( const auto & ipV4 : ipV4Pool ) {
+            printIpV4( ipV4 );
+        }
+    }
 
-    void printIpV4( const IpV4Pool & ipV4Pool,
-                    unsigned char octet1, unsigned char octet2 = 255,
-                    unsigned char octet3 = 255 , unsigned char octet4 = 255 ) {
+    void printIpV4Pool( const IpV4Pool & ipV4Pool, unsigned char octet1) {
+        auto it = std::lower_bound(ipV4Pool.begin(), ipV4Pool.end(), IpV4{ octet1, 255, 255, 255}, compare() );
+        auto end = std::upper_bound(ipV4Pool.begin(), ipV4Pool.end(), IpV4{ octet1, 0, 0, 0}, compare() );
 
-        auto it = std::lower_bound(ipV4Pool.begin(), ipV4Pool.end(), IpV4{ octet1, octet2, octet3, octet4}, compare() );
+        std::cout << "===" << std::endl;
+        for ( ;it != end; ++it ) {
+            printIpV4( *it );
+        }
+    }
 
-        for ( ;it != ipV4Pool.end(); ++it ) {
-            std::cout << "ip: " << std::to_string( it->octet1 ) << '.'
-                      << std::to_string( it->octet2 ) << '.'
-                      << std::to_string( it->octet3) << '.'
-                      << std::to_string( it->octet4 ) << std::endl;
+    void printIpV4Pool( const IpV4Pool & ipV4Pool, unsigned char octet1, unsigned char octet2) {
+        auto it = std::lower_bound(ipV4Pool.begin(), ipV4Pool.end(), IpV4{ octet1, octet2, 255, 255}, compare() );
+        auto end = std::upper_bound(ipV4Pool.begin(), ipV4Pool.end(), IpV4{ octet1, octet2, 0, 0}, compare() );
+
+        std::cout << "===" << std::endl;
+        for ( ;it != end; ++it ) {
+            printIpV4( *it );
         }
     }
 
     void printIpV4Any( const IpV4Pool & ipV4Pool, unsigned char octet ) {
 
     }
-
 }

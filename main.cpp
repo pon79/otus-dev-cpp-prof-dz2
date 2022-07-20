@@ -17,9 +17,11 @@ int main(int argc, char const *argv[])
             ipV4Pool.insert( IpHelper::toIpV4( IpHelper::getIp( line ) ) );
         }
 
-        IpHelper::printIpV4( ipV4Pool );
+        IpHelper::printIpV4Pool( ipV4Pool );
 
-        IpHelper::printIpV4( ipV4Pool, 1 );
+        IpHelper::printIpV4Pool( ipV4Pool, 1 );
+
+        IpHelper::printIpV4Pool( ipV4Pool, 46, 70 );
 
 
         // 222.173.235.246
