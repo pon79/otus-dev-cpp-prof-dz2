@@ -1,0 +1,21 @@
+name: 'IP Filter'
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - run: sudo apt update && sudo apt install googletest libgtest-dev -y
+      - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
+      - run: cmake --build .
+      - run: cmake --build . --target test
+      - run: cmake --build . --target package
+      - uses: ncipollo/release-action@v1.10.0
+      - uses: svenstaro/upload-release-action@2.3.0
+        with:
+          file: ./ip_filter-0.0.${{ github.run_number }}-Linux.deb        
