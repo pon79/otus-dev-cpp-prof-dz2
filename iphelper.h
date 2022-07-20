@@ -77,6 +77,7 @@ namespace IpHelper {
     }
 
 
+    // ===========================
     // ======== PRINT ============
 
     void printIpV4( const IpV4 & ipV4 ) {
@@ -86,34 +87,34 @@ namespace IpHelper {
                   << std::to_string( ipV4.octet4 ) << std::endl;
     }
 
-    void printIpV4Pool( const IpV4Pool & ipV4Pool ) {
-        std::cout << "===" << std::endl;
-        for( const auto & ipV4 : ipV4Pool ) {
+    void printIpV4Pool( const IpV4Pool & ipV4_pool ) {
+        for( const auto & ipV4 : ipV4_pool ) {
             printIpV4( ipV4 );
         }
     }
 
-    void printIpV4Pool( const IpV4Pool & ipV4Pool, unsigned char octet1) {
-        auto it = std::lower_bound(ipV4Pool.begin(), ipV4Pool.end(), IpV4{ octet1, 255, 255, 255}, compare() );
-        auto end = std::upper_bound(ipV4Pool.begin(), ipV4Pool.end(), IpV4{ octet1, 0, 0, 0}, compare() );
+    void printIpV4Pool( const IpV4Pool & ipV4_pool, unsigned char octet1) {
+        auto it = std::lower_bound(ipV4_pool.begin(), ipV4_pool.end(), IpV4{ octet1, 255, 255, 255}, compare() );
+        auto end = std::upper_bound(ipV4_pool.begin(), ipV4_pool.end(), IpV4{ octet1, 0, 0, 0}, compare() );
 
-        std::cout << "===" << std::endl;
         for ( ;it != end; ++it ) {
             printIpV4( *it );
         }
     }
 
-    void printIpV4Pool( const IpV4Pool & ipV4Pool, unsigned char octet1, unsigned char octet2) {
-        auto it = std::lower_bound(ipV4Pool.begin(), ipV4Pool.end(), IpV4{ octet1, octet2, 255, 255}, compare() );
-        auto end = std::upper_bound(ipV4Pool.begin(), ipV4Pool.end(), IpV4{ octet1, octet2, 0, 0}, compare() );
+    void printIpV4Pool( const IpV4Pool & ipV4_pool, unsigned char octet1, unsigned char octet2) {
+        auto it = std::lower_bound(ipV4_pool.begin(), ipV4_pool.end(), IpV4{ octet1, octet2, 255, 255}, compare() );
+        auto end = std::upper_bound(ipV4_pool.begin(), ipV4_pool.end(), IpV4{ octet1, octet2, 0, 0}, compare() );
 
-        std::cout << "===" << std::endl;
         for ( ;it != end; ++it ) {
             printIpV4( *it );
         }
     }
 
-    void printIpV4Any( const IpV4Pool & ipV4Pool, unsigned char octet ) {
-
+    void printIpV4Any( const IpV4Pool & ipV4_pool, unsigned char octet ) {
+        for( const auto & ipV4 : ipV4_pool ) {
+            if( ipV4.octet1 == octet || ipV4.octet2 == octet || ipV4.octet3 == octet || ipV4.octet4 == octet )
+                printIpV4( ipV4 );
+        }
     }
 }
