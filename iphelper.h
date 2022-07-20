@@ -12,6 +12,15 @@ namespace IpHelper {
         unsigned char octet2{0};
         unsigned char octet3{0};
         unsigned char octet4{0};
+
+        // only for tests
+        bool operator==(IpV4 const& rhs) const {
+          return octet1 == rhs.octet1 &&
+                 octet2 == rhs.octet2 &&
+                 octet3 == rhs.octet3 &&
+                 octet4 == rhs.octet4;
+        }
+
     };
 
 
