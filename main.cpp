@@ -9,22 +9,18 @@
 int main(int argc, char const *argv[])
 {
     try
-    {
-        // compare - lexicographically
-        std::set<IpHelper::IpV4, decltype(IpHelper::compare())> ipV4_pool;
+    {        
+        IpHelper::IpV4Pool ipV4Pool; // compare - lexicographically
 
         for( std::string line; std::getline(std::cin, line); )
         {
-            ipV4_pool.insert( IpHelper::toIpV4( IpHelper::getIp( line ) ) );
+            ipV4Pool.insert( IpHelper::toIpV4( IpHelper::getIp( line ) ) );
         }
 
-        // print lexicographically
-        for( const auto & ipV4 : ipV4_pool ) {
-            std::cout << std::to_string( ipV4.octet1 ) << '.'
-                      << std::to_string( ipV4.octet2 ) << '.'
-                      << std::to_string( ipV4.octet3 ) << '.'
-                      << std::to_string( ipV4.octet4 ) << std::endl;
-        }
+        IpHelper::printIpV4( ipV4Pool );
+
+        IpHelper::printIpV4( ipV4Pool, 1 );
+
 
         // 222.173.235.246
         // 222.130.177.64
